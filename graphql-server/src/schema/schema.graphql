@@ -1,0 +1,30 @@
+# define scalar types
+scalar Date
+scalar UUID
+
+# Entity: FavoriteCountry
+type FavoriteCountry {
+  id: UUID!
+  userId: UUID!
+  countryId: String!
+  notes: String
+}
+
+# Entity: User
+type User {
+  id: UUID!
+  username: String!
+  password: String!
+}
+
+type Query {
+  getUsers: [User!]!
+  user(username: String!, password: String!): User
+  getAllFavoriteCountries: [FavoriteCountry]
+  favoriteCountries: [FavoriteCountry]
+}
+
+type Mutation {
+  toggleFavoriteCountry(countryId: String!, notes: String): FavoriteCountry,
+  createUser(username: String!, password: String!): User,
+}

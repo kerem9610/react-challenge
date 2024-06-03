@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  graphql-server:
+    build:
+      context: ./graphql-server
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=${DB_PORT}
+    depends_on:
+      - postgres
+    ports:
+      - "4000:4000"
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: my-frontend
+    ports:
+      - "4173:4173"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
