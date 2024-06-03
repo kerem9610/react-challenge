@@ -6,7 +6,7 @@ module.exports = {
         getAllFavoriteCountries: async (_, __, { pool }) => {
             try {
                 const client = await pool.connect();
-                const result = await client.query('SELECT * FROM FavoriteCountry');
+                const result = await client.query('SELECT * FROM FavoriteCountry ORDER BY countryId');
                 client.release();
                 return result.rows;
             } catch (error) {
@@ -17,7 +17,7 @@ module.exports = {
         favoriteCountries: async (_, __, { userId, pool }) => {
             try {
                 const client = await pool.connect();
-                const result = await client.query('SELECT * FROM "FavoriteCountry" WHERE userId = $1', [userId]);
+                const result = await client.query('SELECT * FROM "FavoriteCountry" WHERE userId = $1 ORDER BY countryId', [userId]);
 
                 client.release();
 
@@ -52,6 +52,23 @@ module.exports = {
                     const result = await client.query(insertText, [id, userId, countryId, notes]);
                     return result.rows[0];
                 }
+            } catch (error) {
+                // Rollback the transaction on error
+                await client.query('ROLLBACK');
+                console.error('Error toggling favorite country:', error);
+                throw error;
+            } finally {
+                client.release();
+            }
+        },
+        addFavoriteCountryNote: async (_, { countryId, notes }, { pool, userId }) => {
+            const client = await pool.connect();
+
+            try {
+                const query = 'UPDATE "FavoriteCountry" SET notes = $1 WHERE countryId = $2 and userId = $3';
+                const { rows } = await client.query(query, [notes, countryId, userId]);
+
+                return rows[0];
             } catch (error) {
                 // Rollback the transaction on error
                 await client.query('ROLLBACK');

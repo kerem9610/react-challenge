@@ -17,7 +17,7 @@ export const FavoriteCountriesTable = ({ countries, favoriteCountries }: Favorit
     };
 
     return (
-        <div className="my-8 border p-5 border-slate-950 bg-slate-800">
+        <div className="my-8 border p-5 border-slate-950 bg-slate-800 overflow-auto">
             <h2 className="text-xl font-bold mb-4">My Favorite Countries</h2>
             <Button
                 className="font-bold py-2 px-4 rounded"

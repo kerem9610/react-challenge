@@ -33,9 +33,7 @@ module.exports = {
             }
         },
         getUsers: async (_, __, { pool }) => {
-            console.log('GETTING USERS');
             const client = await pool.connect();
-            console.log('get users');
             try {
                 const result = await client.query('SELECT * FROM "User"');
                 return result.rows;

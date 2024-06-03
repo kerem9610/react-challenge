@@ -9,6 +9,10 @@
 * npm run dev
 * server will start at: http://localhost:5173/
 
+### Start Database (Do not forget to start a database before the backend to initialiaze the tables)
+* to start the db `docker-compose up --build postgres`
+* to shut the db/everythings `docker-compose down --volumes`
+
 ### Starting GraphQL-Server
 * cd graphql-server
 * npm install

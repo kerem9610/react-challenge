@@ -26,5 +26,6 @@ type Query {
 
 type Mutation {
   toggleFavoriteCountry(countryId: String!, notes: String): FavoriteCountry,
+  addFavoriteCountryNote(countryId: String!, notes: String): FavoriteCountry,
   createUser(username: String!, password: String!): User,
 }
