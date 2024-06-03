@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button, ButtonVariant } from '~components/atom/Button';
 import { Alert } from '~components/molecule/Alert';
 import { useUser } from '~context/UserContext';
 import { useCreateUser } from '~hooks/useCreateUser';
@@ -12,7 +13,7 @@ const LoginForm: React.FC = () => {
         password: ''
     });
     const { createUser } = useCreateUser();
-    const [handleUserLogin, { called, error }] = useLoginUser();
+    const [handleUserLogin, { called, error, loading }] = useLoginUser();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -46,7 +47,9 @@ const LoginForm: React.FC = () => {
                     {isLogin ? 'Login' : 'Register'}
                 </h1>
                 {
-                    (error || called) && !user && <Alert className="mt-2" />
+                    (error || called) && !user && !loading && <Alert className="mt-2">
+                        Your username or password is invalid. Please register yourself or try other credentials
+                    </Alert>
                 }
                 <form onSubmit={handleSubmit} className="my-5 flex flex-col gap-3">
                     <div>
@@ -78,12 +81,13 @@ const LoginForm: React.FC = () => {
                         />
                     </div>
                     <div className="mt-3">
-                        <button
+                        <Button
                             type="submit"
-                            className="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+                            className="w-full text-center"
+                            variant={ButtonVariant.PRIMARY}
                         >
                             {isLogin ? 'Login' : 'Register'}
-                        </button>
+                        </Button>
                     </div>
                 </form>
                 <div className="text-right">

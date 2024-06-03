@@ -2,6 +2,7 @@ import { Country } from '~types/Countries';
 import { MdOutlineStarOutline, MdOutlineStar } from "react-icons/md";
 import { useToggleFavoriteCountry } from '~hooks/useToggleFavoriteCountry';
 import { useState } from 'react';
+import { Button, ButtonVariant } from '~components/atom/Button';
 
 
 type CountryCardProps = {
@@ -43,13 +44,16 @@ export const CountryCard = ({ country, isFavorite }: CountryCardProps) => {
                 </div>
             </div>
             <div className="w-full">
-                <button className="flex items-center gap-2 ml-auto" onClick={handleToggleFavoriteClick}>
+                <Button
+                    className="ml-auto"
+                    variant={ButtonVariant.SECONDARY}
+                    onClick={handleToggleFavoriteClick}>
                     {
                         isCurrentlyFavorite
                             ? <>Unmark as Fav <MdOutlineStar /></>
                             : <>Mark as Fav <MdOutlineStarOutline /></>
                     }
-                </button>
+                </Button>
             </div>
         </div>
     );

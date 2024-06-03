@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button, ButtonVariant } from '~components/atom/Button';
 import { FavoriteCountriesTableRow } from '~components/atom/FavoriteCountriesTableRow';
 import { Country } from '~types/Countries';
 import { FavoriteCountry } from '~types/FavoriteCountries';
@@ -18,12 +19,13 @@ export const FavoriteCountriesTable = ({ countries, favoriteCountries }: Favorit
     return (
         <div className="my-8 border p-5 border-slate-950 bg-slate-800">
             <h2 className="text-xl font-bold mb-4">My Favorite Countries</h2>
-            <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            <Button
+                className="font-bold py-2 px-4 rounded"
+                variant={ButtonVariant.PRIMARY}
                 onClick={toggleVisibility}
             >
                 {showFavorites ? 'Hide Favorites' : 'Show Favorites'}
-            </button>
+            </Button>
             {showFavorites && (
                 <table className="mt-4 w-full">
                     <thead>
