@@ -47,6 +47,7 @@ export const FavoriteCountriesTable = ({ countries, favoriteCountries }: Favorit
 
                             return (
                                 <FavoriteCountriesTableRow
+                                    key={country.code}
                                     capital={country.capital}
                                     flag={country.emoji}
                                     name={country.name}
